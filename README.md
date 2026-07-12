@@ -1,30 +1,19 @@
 
-# Présidentielle 2027 — Dashboard V2
+# Présidentielle 2027 — Dashboard V3
 
-## Remplacement sur GitHub
+Cette version transforme l'application en projet Streamlit multipage.
 
-Dans le dépôt `klemau84/presidentielle-2027`, remplace les fichiers existants par :
+## Structure
 
 - `app.py`
-- `sondages.csv`
-- `changelog.csv`
+- `pages/`
+- `data/`
+- `utils/`
 - `requirements.txt`
-- `README.md`
 
-Streamlit redéploiera automatiquement l'application après le commit.
+## Mise à jour GitHub
 
-## Nouveautés
+Le plus simple est de supprimer les anciens fichiers du dépôt, puis d'importer tout le contenu
+décompressé de cette archive en conservant les dossiers.
 
-- interface à onglets ;
-- moyenne pondérée simple ;
-- courbe d'évolution ;
-- comparaison Philippe / Attal ;
-- journal des changements ;
-- nouvelle vague Ifop de juillet 2026, limitée aux principaux scores publiés ;
-- avertissements méthodologiques visibles.
-
-## Important
-
-La simulation n'est pas une prévision électorale. Les résultats partiels ne doivent pas être
-interprétés comme des tableaux complets et ne sont pas utilisés pour reconstituer artificiellement
-les scores manquants.
+Streamlit redéploiera automatiquement après le commit.
