@@ -1,19 +1,25 @@
 
-# Présidentielle 2027 — Dashboard V3
+# Présidentielle 2027 — Dashboard V4
 
-Cette version transforme l'application en projet Streamlit multipage.
+Version monofichier robuste pour Streamlit Cloud.
 
-## Structure
+## Installation avec GitHub Desktop
 
-- `app.py`
-- `pages/`
-- `data/`
-- `utils/`
-- `requirements.txt`
+1. Dans le dépôt local, supprimer les anciens dossiers :
+   - `pages`
+   - `data`
+   - `utils`
+2. Ne jamais supprimer le dossier caché `.git`.
+3. Copier les fichiers de cette archive dans le dossier du dépôt.
+4. Dans GitHub Desktop, saisir `V4`.
+5. Cliquer sur `Commit to main`.
+6. Cliquer sur `Push origin`.
 
-## Mise à jour GitHub
+## Nouveautés
 
-Le plus simple est de supprimer les anciens fichiers du dépôt, puis d'importer tout le contenu
-décompressé de cette archive en conservant les dossiers.
-
-Streamlit redéploiera automatiquement après le commit.
+- interface à sept onglets ;
+- indicateur de dynamique récente ;
+- indice simple de consensus entre instituts ;
+- export CSV ;
+- vue des sources et du journal des changements ;
+- aucune dépendance aux pages Streamlit multipages.
