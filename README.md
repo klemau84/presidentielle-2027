@@ -1,9 +1,24 @@
-# Correctif navigation V5 test reports
 
-Ce correctif ajoute des clés Streamlit distinctes aux filtres et sécurise la sélection des duels.
+# Présidentielle 2027 — V5
 
-Remplacer uniquement `app.py`, puis :
+La V5 sépare clairement :
 
-1. Summary : `Correctif navigation reports`
+- le premier tour : intentions de vote, moyennes et simulation de qualification ;
+- le second tour : duels effectivement testés et publiés.
+
+## Installation
+
+Copier et remplacer dans le dépôt local :
+
+- app.py
+- sondages.csv
+- second_tour.csv
+- changelog.csv
+- requirements.txt
+- README.md
+
+Puis dans GitHub Desktop :
+
+1. Summary : V5
 2. Commit to main
 3. Push origin

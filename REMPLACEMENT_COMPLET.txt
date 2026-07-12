@@ -1,0 +1,14 @@
+RESTAURATION V5 PROPRE
+
+Dans le dossier local :
+C:\Users\klema\Documents\GitHub\presidentielle-2027
+
+1. Conserver uniquement le dossier caché .git
+2. Supprimer tous les autres fichiers et dossiers
+3. Copier ici tous les fichiers de cette archive
+4. Dans GitHub Desktop :
+   - Summary : Restauration V5
+   - Commit to main
+   - Push origin
+
+Ne jamais supprimer le dossier .git.

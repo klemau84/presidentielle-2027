@@ -28,8 +28,6 @@ def load_data():
         parse_dates=["publication", "terrain_start", "terrain_end"],
     )
     changes = pd.read_csv(BASE / "changelog.csv", parse_dates=["date"])
-    reports = pd.read_csv(BASE / "reports_demo.csv")
-    leaders = pd.read_csv(BASE / "leaders_demo.csv")
 
     first["score"] = pd.to_numeric(first["score"], errors="coerce")
     first["echantillon_exprimes"] = pd.to_numeric(
@@ -43,7 +41,7 @@ def load_data():
     })
 
     second["score"] = pd.to_numeric(second["score"], errors="coerce")
-    return first, second, changes, reports, leaders
+    return first, second, changes
 
 
 def weighted_average(frame):
@@ -82,15 +80,14 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-first, second, changes, reports, leaders = load_data()
+first, second, changes = load_data()
 
 st.title("Présidentielle 2027 — observatoire des sondages")
 
 round_choice = st.radio(
     "Tour analysé",
-    ["Premier tour", "Second tour", "Familles et reports (démo)"],
+    ["Premier tour", "Second tour"],
     horizontal=True,
-    key="tour_analyse",
 )
 
 if round_choice == "Premier tour":
@@ -100,23 +97,19 @@ if round_choice == "Premier tour":
             "Hypothèse centrale",
             ["Édouard Philippe", "Gabriel Attal"],
             index=0,
-            key="premier_tour_centre",
         )
         institutes = st.multiselect(
             "Instituts",
             sorted(first["institut"].dropna().unique()),
             default=sorted(first["institut"].dropna().unique()),
-            key="premier_tour_instituts",
         )
         uncertainty = st.slider(
             "Incertitude de simulation (points)",
             0.5, 4.0, 2.0, 0.1,
-            key="premier_tour_incertitude",
         )
         simulations = st.slider(
             "Nombre de simulations",
             5_000, 100_000, 30_000, 5_000,
-            key="premier_tour_simulations",
         )
         st.caption("Les scénarios de candidatures ne sont pas interchangeables.")
 
@@ -266,22 +259,12 @@ if round_choice == "Premier tour":
             "text/csv",
         )
 
-elif round_choice == "Second tour":
+else:
     with st.sidebar:
         st.title("Filtres — Second tour")
-        duel_options = second["duel"].dropna().drop_duplicates().tolist()
-        if not duel_options:
-            st.error("Aucun duel de second tour n'est disponible.")
-            st.stop()
-
-        saved_duel = st.session_state.get("second_tour_duel")
-        if saved_duel not in duel_options:
-            st.session_state["second_tour_duel"] = duel_options[0]
-
         duel = st.selectbox(
             "Duel",
-            duel_options,
-            key="second_tour_duel",
+            second["duel"].drop_duplicates().tolist(),
         )
         st.caption(
             "Les valeurs affichées sont des intentions de vote publiées, "
@@ -289,9 +272,6 @@ elif round_choice == "Second tour":
         )
 
     duel_data = second[second["duel"] == duel].copy().sort_values("score", ascending=False)
-    if len(duel_data) < 2:
-        st.error("Les données de ce duel sont incomplètes. Sélectionne un autre duel.")
-        st.stop()
     latest_date = duel_data["terrain_end"].max()
     nsp = duel_data["nsp_pct"].iloc[0]
     base = int(duel_data["echantillon_exprimes"].iloc[0])
@@ -371,91 +351,6 @@ elif round_choice == "Second tour":
             de personnes sans opinion est affichée séparément.
             """
         )
-
-
-else:
-    st.warning(
-        "Prototype de démonstration : les chiffres de cette section sont fictifs. "
-        "Ils servent uniquement à tester la présentation et ne doivent pas être interprétés politiquement."
-    )
-
-    with st.sidebar:
-        st.title("Filtres — Démonstration")
-        demo_duel = st.selectbox(
-            "Duel simulé",
-            ["Marine Le Pen vs Édouard Philippe"],
-            key="demo_duel",
-        )
-        st.caption("Aucune donnée réelle n'est utilisée dans cet espace.")
-
-    st.subheader("Reports de voix par famille politique")
-
-    report_long = reports.melt(
-        id_vars="famille_premier_tour",
-        value_vars=["Philippe", "Le Pen", "Abstention"],
-        var_name="destination",
-        value_name="pourcentage",
-    )
-
-    fig_demo = px.bar(
-        report_long,
-        x="pourcentage",
-        y="famille_premier_tour",
-        color="destination",
-        orientation="h",
-        barmode="stack",
-        text="pourcentage",
-        labels={
-            "pourcentage": "Répartition (%)",
-            "famille_premier_tour": "",
-            "destination": "Destination",
-        },
-    )
-    fig_demo.update_traces(texttemplate="%{text:.0f} %", textposition="inside")
-    fig_demo.update_xaxes(range=[0, 100])
-    fig_demo.update_layout(height=560)
-    st.plotly_chart(fig_demo, use_container_width=True)
-
-    st.subheader("Position du leader vs comportement simulé des électeurs")
-    leader_view = leaders.copy()
-    leader_view["discipline_pct"] = leader_view["vers_candidat_soutenu"]
-    st.dataframe(
-        leader_view[
-            [
-                "famille",
-                "position_du_leader",
-                "vers_candidat_soutenu",
-                "vers_adversaire",
-                "abstention",
-            ]
-        ],
-        use_container_width=True,
-        hide_index=True,
-    )
-
-    discipline_chart = px.bar(
-        leader_view.sort_values("discipline_pct"),
-        x="discipline_pct",
-        y="famille",
-        orientation="h",
-        text=leader_view.sort_values("discipline_pct")["discipline_pct"].map(
-            lambda v: f"{v:.0f} %"
-        ),
-        labels={
-            "discipline_pct": "Part suivant le candidat soutenu (%)",
-            "famille": "",
-        },
-    )
-    discipline_chart.update_traces(textposition="outside", cliponaxis=False)
-    discipline_chart.update_xaxes(range=[0, 100])
-    discipline_chart.update_layout(height=420, showlegend=False)
-    st.plotly_chart(discipline_chart, use_container_width=True)
-
-    st.info(
-        "Pour passer de cette démonstration à une analyse réelle, il faudra intégrer "
-        "des tableaux de report de voix publiés par les instituts ou signaler clairement "
-        "les valeurs reconstruites comme des estimations."
-    )
 
 st.divider()
 
