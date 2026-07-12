@@ -1,24 +1,27 @@
 
-# Présidentielle 2027 — V5
+# Présidentielle 2027 — Test reports de voix
 
-La V5 sépare clairement :
+Cette version ajoute un troisième espace :
 
-- le premier tour : intentions de vote, moyennes et simulation de qualification ;
-- le second tour : duels effectivement testés et publiés.
+- Premier tour
+- Second tour
+- Familles et reports (démo)
+
+Les données de reports de voix sont entièrement fictives et servent seulement à tester l'interface.
 
 ## Installation
 
-Copier et remplacer dans le dépôt local :
+Remplacer / ajouter :
 
 - app.py
-- sondages.csv
-- second_tour.csv
-- changelog.csv
-- requirements.txt
+- reports_demo.csv
+- leaders_demo.csv
 - README.md
 
-Puis dans GitHub Desktop :
+Les autres fichiers peuvent rester inchangés.
 
-1. Summary : V5
+Dans GitHub Desktop :
+
+1. Summary : Test reports
 2. Commit to main
 3. Push origin
