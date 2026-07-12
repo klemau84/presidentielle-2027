@@ -1,25 +1,24 @@
 
-# Présidentielle 2027 — Dashboard V4
+# Présidentielle 2027 — V5
 
-Version monofichier robuste pour Streamlit Cloud.
+La V5 sépare clairement :
 
-## Installation avec GitHub Desktop
+- le premier tour : intentions de vote, moyennes et simulation de qualification ;
+- le second tour : duels effectivement testés et publiés.
 
-1. Dans le dépôt local, supprimer les anciens dossiers :
-   - `pages`
-   - `data`
-   - `utils`
-2. Ne jamais supprimer le dossier caché `.git`.
-3. Copier les fichiers de cette archive dans le dossier du dépôt.
-4. Dans GitHub Desktop, saisir `V4`.
-5. Cliquer sur `Commit to main`.
-6. Cliquer sur `Push origin`.
+## Installation
 
-## Nouveautés
+Copier et remplacer dans le dépôt local :
 
-- interface à sept onglets ;
-- indicateur de dynamique récente ;
-- indice simple de consensus entre instituts ;
-- export CSV ;
-- vue des sources et du journal des changements ;
-- aucune dépendance aux pages Streamlit multipages.
+- app.py
+- sondages.csv
+- second_tour.csv
+- changelog.csv
+- requirements.txt
+- README.md
+
+Puis dans GitHub Desktop :
+
+1. Summary : V5
+2. Commit to main
+3. Push origin
