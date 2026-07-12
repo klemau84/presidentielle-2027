@@ -1,14 +1,1 @@
-V5.1 COMPLETE
-
-Dans :
-C:\Users\klema\Documents\GitHub\presidentielle-2027
-
-1. Conserver uniquement le dossier .git
-2. Supprimer tous les autres fichiers et dossiers
-3. Copier tout le contenu de cette archive
-4. GitHub Desktop :
-   - Summary : V5.1 complète
-   - Commit to main
-   - Push origin
-
-NE JAMAIS SUPPRIMER .git
+Conserver uniquement .git, supprimer le reste, copier tous les fichiers, puis Commit to main et Push origin.
