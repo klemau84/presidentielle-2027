@@ -1,24 +1,22 @@
 
-# Présidentielle 2027 — V5
+# Présidentielle 2027 — V5.1 complète
 
-La V5 sépare clairement :
+Cette version contient :
 
-- le premier tour : intentions de vote, moyennes et simulation de qualification ;
-- le second tour : duels effectivement testés et publiés.
+- premier tour ;
+- second tour ;
+- familles et reports de voix en démonstration fictive.
 
-## Installation
+## Remplacement complet
 
-Copier et remplacer dans le dépôt local :
+Dans le dossier local `presidentielle-2027` :
 
-- app.py
-- sondages.csv
-- second_tour.csv
-- changelog.csv
-- requirements.txt
-- README.md
+1. conserver uniquement le dossier caché `.git` ;
+2. supprimer tous les autres fichiers et dossiers ;
+3. copier l'intégralité du contenu de cette archive ;
+4. dans GitHub Desktop :
+   - Summary : `V5.1 complète`
+   - Commit to main
+   - Push origin
 
-Puis dans GitHub Desktop :
-
-1. Summary : V5
-2. Commit to main
-3. Push origin
+Ne jamais supprimer `.git`.
