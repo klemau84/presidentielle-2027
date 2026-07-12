@@ -90,6 +90,7 @@ round_choice = st.radio(
     "Tour analysé",
     ["Premier tour", "Second tour", "Familles et reports (démo)"],
     horizontal=True,
+    key="tour_analyse",
 )
 
 if round_choice == "Premier tour":
@@ -99,19 +100,23 @@ if round_choice == "Premier tour":
             "Hypothèse centrale",
             ["Édouard Philippe", "Gabriel Attal"],
             index=0,
+            key="premier_tour_centre",
         )
         institutes = st.multiselect(
             "Instituts",
             sorted(first["institut"].dropna().unique()),
             default=sorted(first["institut"].dropna().unique()),
+            key="premier_tour_instituts",
         )
         uncertainty = st.slider(
             "Incertitude de simulation (points)",
             0.5, 4.0, 2.0, 0.1,
+            key="premier_tour_incertitude",
         )
         simulations = st.slider(
             "Nombre de simulations",
             5_000, 100_000, 30_000, 5_000,
+            key="premier_tour_simulations",
         )
         st.caption("Les scénarios de candidatures ne sont pas interchangeables.")
 
@@ -264,9 +269,19 @@ if round_choice == "Premier tour":
 elif round_choice == "Second tour":
     with st.sidebar:
         st.title("Filtres — Second tour")
+        duel_options = second["duel"].dropna().drop_duplicates().tolist()
+        if not duel_options:
+            st.error("Aucun duel de second tour n'est disponible.")
+            st.stop()
+
+        saved_duel = st.session_state.get("second_tour_duel")
+        if saved_duel not in duel_options:
+            st.session_state["second_tour_duel"] = duel_options[0]
+
         duel = st.selectbox(
             "Duel",
-            second["duel"].drop_duplicates().tolist(),
+            duel_options,
+            key="second_tour_duel",
         )
         st.caption(
             "Les valeurs affichées sont des intentions de vote publiées, "
@@ -274,6 +289,9 @@ elif round_choice == "Second tour":
         )
 
     duel_data = second[second["duel"] == duel].copy().sort_values("score", ascending=False)
+    if len(duel_data) < 2:
+        st.error("Les données de ce duel sont incomplètes. Sélectionne un autre duel.")
+        st.stop()
     latest_date = duel_data["terrain_end"].max()
     nsp = duel_data["nsp_pct"].iloc[0]
     base = int(duel_data["echantillon_exprimes"].iloc[0])
@@ -366,6 +384,7 @@ else:
         demo_duel = st.selectbox(
             "Duel simulé",
             ["Marine Le Pen vs Édouard Philippe"],
+            key="demo_duel",
         )
         st.caption("Aucune donnée réelle n'est utilisée dans cet espace.")
 
