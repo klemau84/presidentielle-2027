@@ -1,25 +1,30 @@
 
-# Observatoire des sondages — Présidentielle 2027
+# Présidentielle 2027 — Dashboard V2
 
-## Lancement
+## Remplacement sur GitHub
 
-```bash
-python -m venv .venv
-source .venv/bin/activate      # Windows : .venv\Scripts\activate
-pip install -r requirements.txt
-streamlit run app.py
-```
+Dans le dépôt `klemau84/presidentielle-2027`, remplace les fichiers existants par :
 
-## Ce que montre le prototype
+- `app.py`
+- `sondages.csv`
+- `changelog.csv`
+- `requirements.txt`
+- `README.md`
 
-- sélection d'un scénario de candidatures ;
-- histogramme des intentions de vote ;
-- simulation de qualification au second tour ;
-- comparaison matricielle des scénarios ;
-- table complète avec liens vers les sources.
+Streamlit redéploiera automatiquement l'application après le commit.
 
-## Limites
+## Nouveautés
 
-La simulation est un outil pédagogique, pas une prédiction. Les scénarios ne doivent pas être agrégés
-sans méthode de normalisation. Les données incluses sont une amorce issue d'Ipsos bva (terrain du
-27 au 28 mai 2026) et d'OpinionWay (terrain du 10 au 11 juin 2026).
+- interface à onglets ;
+- moyenne pondérée simple ;
+- courbe d'évolution ;
+- comparaison Philippe / Attal ;
+- journal des changements ;
+- nouvelle vague Ifop de juillet 2026, limitée aux principaux scores publiés ;
+- avertissements méthodologiques visibles.
+
+## Important
+
+La simulation n'est pas une prévision électorale. Les résultats partiels ne doivent pas être
+interprétés comme des tableaux complets et ne sont pas utilisés pour reconstituer artificiellement
+les scores manquants.
