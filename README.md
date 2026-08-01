@@ -1,31 +1,11 @@
+# Présidentielle 2027 — V7.1
 
-# Présidentielle 2027 — V6 complète
+- bandeau de fraîcheur ;
+- dernier sondage intégré ;
+- dernière vague mise en évidence ;
+- fraîcheur par institut ;
+- inventaire des fichiers ;
+- historique des mises à jour ;
+- actualisation automatique clairement indiquée comme désactivée.
 
-Cette version conserve :
-
-- premier tour ;
-- second tour ;
-- sources et historique.
-
-Elle ajoute :
-
-- comparateur de programmes économiques ;
-- distinction recettes, dépenses et moindres recettes ;
-- ordres de grandeur externes ;
-- statut de maturité des programmes 2027 ;
-- faisabilité juridique, européenne et politique ;
-- contexte macro-budgétaire.
-
-## Remplacement complet
-
-Dans le dossier local `presidentielle-2027` :
-
-1. conserver uniquement `.git` ;
-2. supprimer tous les autres fichiers et dossiers ;
-3. copier l'intégralité du contenu de cette archive ;
-4. GitHub Desktop :
-   - Summary : `V6 - Programmes économiques`
-   - Commit to main
-   - Push origin
-
-Ne jamais supprimer `.git`.
+Génération UTC : 2026-08-01T13:08:19Z

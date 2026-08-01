@@ -30,6 +30,9 @@ def load_data():
     changes = pd.read_csv(BASE / "changelog.csv", parse_dates=["date"])
     mesures = pd.read_csv(BASE / "mesures_economiques.csv")
     contexte = pd.read_csv(BASE / "contexte_macro.csv")
+    metadata = pd.read_csv(BASE / "metadonnees_application.csv")
+    etat_instituts = pd.read_csv(BASE / "etat_instituts.csv")
+    etat_donnees = pd.read_csv(BASE / "etat_donnees.csv")
 
     first["score"] = pd.to_numeric(first["score"], errors="coerce")
     first["echantillon_exprimes"] = pd.to_numeric(
@@ -43,7 +46,7 @@ def load_data():
     })
 
     second["score"] = pd.to_numeric(second["score"], errors="coerce")
-    return first, second, changes, mesures, contexte
+    return first, second, changes, mesures, contexte, metadata, etat_instituts, etat_donnees
 
 
 def weighted_average(frame):
@@ -79,12 +82,63 @@ st.markdown("""
     padding: 14px 18px;
 }
 .hero-note {opacity:.74; font-size:.92rem; margin-bottom:1rem;}
+.latest-box {
+    border-left: 5px solid #5b8def;
+    background: rgba(91,141,239,.08);
+    padding: 12px 16px;
+    border-radius: 10px;
+    margin: .5rem 0 1rem 0;
+}
 </style>
 """, unsafe_allow_html=True)
 
-first, second, changes, mesures, contexte = load_data()
+first, second, changes, mesures, contexte, metadata, etat_instituts, etat_donnees = load_data()
+metadata_map = dict(zip(metadata["cle"], metadata["valeur"])) if not metadata.empty else {}
 
 st.title("Présidentielle 2027 — observatoire des sondages")
+
+latest_first_publication = pd.to_datetime(first["publication"], errors="coerce").max()
+latest_second_publication = pd.to_datetime(second["publication"], errors="coerce").max()
+last_data_date = max(latest_first_publication, latest_second_publication)
+
+with st.container(border=True):
+    u1, u2, u3, u4 = st.columns(4)
+    u1.metric("Version des données", metadata_map.get("version_application", "V7.1"))
+    u2.metric(
+        "Dernier sondage intégré",
+        "N/D" if pd.isna(last_data_date) else f"{last_data_date:%d/%m/%Y}"
+    )
+    u3.metric("Instituts suivis", metadata_map.get("nombre_instituts", "0"))
+    u4.metric("Actualisation automatique", metadata_map.get("actualisation_automatique", "Non"))
+    st.caption(
+        "Le dernier sondage correspond à la date la plus récente présente dans les fichiers. "
+        "Un redémarrage Streamlit ne télécharge aucune nouvelle donnée."
+    )
+
+with st.expander("État des données et historique des mises à jour"):
+    e1, e2, e3 = st.columns(3)
+    e1.metric("Vagues premier tour", metadata_map.get("nombre_vagues_premier_tour", "0"))
+    e2.metric("Scénarios premier tour", metadata_map.get("nombre_scenarios_premier_tour", "0"))
+    e3.metric("Duels second tour", metadata_map.get("nombre_duels_second_tour", "0"))
+
+    st.subheader("Fraîcheur par institut")
+    st.dataframe(
+        etat_instituts.sort_values(
+            ["jours_depuis_derniere_publication", "institut"],
+            na_position="last"
+        ),
+        width="stretch",
+        hide_index=True,
+    )
+
+    st.subheader("Inventaire des fichiers")
+    st.dataframe(etat_donnees, width="stretch", hide_index=True)
+
+    st.subheader("Historique des versions")
+    history_view = changes.sort_values("date", ascending=False).copy()
+    history_view["date"] = history_view["date"].dt.strftime("%d/%m/%Y")
+    st.dataframe(history_view, width="stretch", hide_index=True)
+
 
 round_choice = st.radio(
     "Tour analysé",
@@ -128,6 +182,18 @@ if round_choice == "Premier tour":
     latest_date = view["terrain_end"].max()
     latest = view[view["terrain_end"] == latest_date].sort_values("score", ascending=False)
     average = weighted_average(view)
+
+    latest_poll_rows = view[
+        view["publication"] == view["publication"].max()
+    ].sort_values("score", ascending=False)
+    latest_poll = latest_poll_rows.iloc[0]
+    st.markdown(
+        f"<div class='latest-box'><b>Dernière vague intégrée</b><br>"
+        f"{latest_poll['institut']} · publiée le "
+        f"{latest_poll['publication']:%d/%m/%Y} · terrain jusqu'au "
+        f"{latest_poll['terrain_end']:%d/%m/%Y}</div>",
+        unsafe_allow_html=True,
+    )
 
     st.markdown(
         f"<div class='hero-note'>Dernière donnée : <b>{latest_date:%d/%m/%Y}</b> · "
@@ -277,6 +343,18 @@ elif round_choice == "Second tour":
     latest_date = duel_data["terrain_end"].max()
     nsp = duel_data["nsp_pct"].iloc[0]
     base = int(duel_data["echantillon_exprimes"].iloc[0])
+
+    latest_second_rows = duel_data[
+        duel_data["publication"] == duel_data["publication"].max()
+    ]
+    latest_second_poll = latest_second_rows.iloc[0]
+    st.markdown(
+        f"<div class='latest-box'><b>Dernier second tour intégré</b><br>"
+        f"{latest_second_poll['institut']} · publié le "
+        f"{latest_second_poll['publication']:%d/%m/%Y} · terrain jusqu'au "
+        f"{latest_second_poll['terrain_end']:%d/%m/%Y}</div>",
+        unsafe_allow_html=True,
+    )
 
     st.markdown(
         f"<div class='hero-note'>Dernier sondage de second tour : "

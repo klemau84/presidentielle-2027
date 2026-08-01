@@ -1,1 +1,1 @@
-Conserver uniquement .git, supprimer le reste, copier tous les fichiers, puis Commit to main et Push origin.
+Conserver uniquement .git, supprimer les autres fichiers, copier le ZIP. Commit conseillé : V7.1 - Fraîcheur des données
