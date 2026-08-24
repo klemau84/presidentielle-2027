@@ -1,8 +1,10 @@
 ﻿jeu_donnees,fichier,enregistrements,colonnes,etat,date_controle_utc
-changelog,changelog.csv,6,3,OK,2026-08-01T13:08:19Z
-contexte_macro,contexte_macro.csv,5,5,OK,2026-08-01T13:08:19Z
-etat_instituts,etat_instituts.csv,3,10,OK,2026-08-01T13:08:19Z
-mesures_economiques,mesures_economiques.csv,7,21,OK,2026-08-01T13:08:19Z
-metadonnees_application,metadonnees_application.csv,12,2,OK,2026-08-01T13:08:19Z
-second_tour,second_tour.csv,6,12,OK,2026-08-01T13:08:19Z
-sondages,sondages.csv,60,13,OK,2026-08-01T13:08:19Z
+changelog,changelog.csv,8,3,OK,2026-08-24T14:53:48Z
+contexte_macro,contexte_macro.csv,5,5,OK,2026-08-24T14:53:48Z
+etat_instituts,etat_instituts.csv,4,10,OK,2026-08-24T14:53:48Z
+mesures_economiques,mesures_economiques.csv,7,21,OK,2026-08-24T14:53:48Z
+metadonnees_application,metadonnees_application.csv,14,2,OK,2026-08-24T14:53:48Z
+second_tour,second_tour.csv,16,12,OK,2026-08-24T14:53:48Z
+sondages,sondages.csv,82,13,OK,2026-08-24T14:53:48Z
+sondages_detectes,sondages_detectes.csv,0,6,OK,2026-08-24T14:53:48Z
+sources_veille,sources_veille.csv,6,4,OK,2026-08-24T14:53:48Z

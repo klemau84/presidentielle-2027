@@ -109,11 +109,25 @@ with st.container(border=True):
         "N/D" if pd.isna(last_data_date) else f"{last_data_date:%d/%m/%Y}"
     )
     u3.metric("Instituts suivis", metadata_map.get("nombre_instituts", "0"))
-    u4.metric("Actualisation automatique", metadata_map.get("actualisation_automatique", "Non"))
+    u4.metric("Veille automatique", metadata_map.get("actualisation_automatique", "Non"))
     st.caption(
         "Le dernier sondage correspond à la date la plus récente présente dans les fichiers. "
-        "Un redémarrage Streamlit ne télécharge aucune nouvelle donnée."
+        "La veille GitHub détecte les nouvelles publications chaque semaine. "
+        "Les chiffres ne sont intégrés aux moyennes qu’après validation."
     )
+
+with st.expander("Veille automatique des nouveaux sondages"):
+    v1, v2 = st.columns(2)
+    v1.metric("Dernier balayage", metadata_map.get("dernier_balayage_utc", "Jamais"))
+    v2.metric("Nouveaux signaux au dernier passage", metadata_map.get("derniers_signaux_detectes", "0"))
+    detected_file = BASE / "sondages_detectes.csv"
+    if detected_file.exists():
+        detected = pd.read_csv(detected_file)
+        if detected.empty:
+            st.info("Aucun signal enregistré pour le moment. Lance le workflow GitHub Actions une première fois.")
+        else:
+            st.dataframe(detected.head(50), width="stretch", hide_index=True)
+    st.caption("Détection automatique ≠ intégration automatique : un casting ou un tableau incomplet peut fausser les moyennes.")
 
 with st.expander("État des données et historique des mises à jour"):
     e1, e2, e3 = st.columns(3)

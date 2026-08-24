@@ -1,1 +1,2 @@
-Conserver uniquement .git, supprimer les autres fichiers, copier le ZIP. Commit conseillé : V7.1 - Fraîcheur des données
+Conserver uniquement .git, remplacer le reste par le contenu de ce ZIP.
+Commit conseillé : V7.2 - Elabe + veille sondages automatique
