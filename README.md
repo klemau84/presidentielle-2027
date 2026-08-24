@@ -1,15 +1,15 @@
-# Présidentielle 2027 — V7.2
+# Présidentielle 2027 — V7.3
 
-Base : V7.1 fournie par l'utilisateur.
+Base : V7.2.
 
-## Ajouts
-- Elabe, terrain 9–10 juillet 2026, publication 11 juillet : 2 scénarios compatibles avec le tableau de bord.
-- 5 duels de second tour Elabe.
-- Veille hebdomadaire GitHub Actions.
-- Détection Ifop, Elabe, Harris, OpinionWay, Ipsos, Verian et Odoxa via recherche d'actualités.
-- Fichier `sondages_detectes.csv` pour les publications à contrôler.
-- Affichage du dernier balayage dans Streamlit.
+## V7.3
+- dernière vague Toluna Harris Interactive / M6 / RTL publiée le 24 août 2026 ;
+- terrain 18–19 août, 1 764 inscrits ;
+- Marine Le Pen 35–38 % selon les cinq configurations ;
+- détail des positions centrales et de Jean-Luc Mélenchon lorsqu'elles sont explicitement publiées ;
+- registre des notices de la Commission des sondages ;
+- séparation des intentions de vote et des simples baromètres politiques ;
+- aucune valeur manquante n'est inventée pour compléter artificiellement une configuration.
 
-La veille détecte automatiquement. L'intégration des chiffres reste contrôlée afin de ne pas mélanger des castings incompatibles.
-
-Généré : 2026-08-24T14:53:48Z
+La vague du 24 août est affichée comme dernière donnée vérifiée, mais elle n'est pas injectée
+dans la moyenne pondérée tant que les cinq tableaux complets n'ont pas été validés.

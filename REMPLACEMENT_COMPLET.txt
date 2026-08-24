@@ -1,2 +1,2 @@
-Conserver uniquement .git, remplacer le reste par le contenu de ce ZIP.
-Commit conseillé : V7.2 - Elabe + veille sondages automatique
+Conserver uniquement .git puis remplacer le reste par ce ZIP.
+Commit conseillé : V7.3 - Derniers sondages + registre Commission

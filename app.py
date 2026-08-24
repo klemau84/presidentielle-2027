@@ -96,6 +96,7 @@ first, second, changes, mesures, contexte, metadata, etat_instituts, etat_donnee
 metadata_map = dict(zip(metadata["cle"], metadata["valeur"])) if not metadata.empty else {}
 
 st.title("Présidentielle 2027 — observatoire des sondages")
+st.caption("V7.3 · dernière vague vérifiée + registre officiel des publications")
 
 latest_first_publication = pd.to_datetime(first["publication"], errors="coerce").max()
 latest_second_publication = pd.to_datetime(second["publication"], errors="coerce").max()
@@ -114,6 +115,28 @@ with st.container(border=True):
         "Le dernier sondage correspond à la date la plus récente présente dans les fichiers. "
         "La veille GitHub détecte les nouvelles publications chaque semaine. "
         "Les chiffres ne sont intégrés aux moyennes qu’après validation."
+    )
+
+st.info(
+    "Dernière vague vérifiée : **Toluna Harris Interactive pour M6 / RTL**, "
+    "publiée le **24/08/2026**, terrain du **18 au 19/08**, "
+    "**1 764 inscrits**. Marine Le Pen est à **35–38 %** selon les cinq configurations."
+)
+with st.expander("Dernière vague — détail vérifié", expanded=True):
+    latest_file = BASE / "dernieres_vagues.csv"
+    latest_df = pd.read_csv(latest_file)
+    st.dataframe(latest_df, width="stretch", hide_index=True)
+    st.caption(
+        "Le tableau reprend uniquement les valeurs explicitement vérifiées. "
+        "Les cellules non publiées dans les sources accessibles ne sont pas reconstruites."
+    )
+
+with st.expander("Registre Commission des sondages"):
+    commission_df = pd.read_csv(BASE / "index_commission_sondages.csv")
+    st.dataframe(commission_df, width="stretch", hide_index=True)
+    st.caption(
+        "Tous les dépôts portant le tag présidentielle ne sont pas des intentions de vote. "
+        "Les baromètres de popularité restent séparés des moyennes électorales."
     )
 
 with st.expander("Veille automatique des nouveaux sondages"):

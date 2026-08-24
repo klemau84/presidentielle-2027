@@ -1,5 +1,5 @@
 ﻿cle,valeur
-version_application,V7.2
+version_application,V7.3
 date_generation_utc,2026-08-24T14:53:48Z
 actualisation_automatique,Oui — détection hebdomadaire
 mode_actualisation,Veille GitHub Actions + intégration contrôlée
@@ -7,9 +7,12 @@ nombre_vagues_premier_tour,4
 nombre_scenarios_premier_tour,8
 nombre_instituts,4
 nombre_duels_second_tour,8
-dernier_sondage_premier_tour,2026-07-11
-dernier_institut_premier_tour,Elabe
+dernier_sondage_premier_tour,2026-08-24
+dernier_institut_premier_tour,Toluna Harris Interactive
 dernier_sondage_second_tour,2026-07-11
 dernier_institut_second_tour,Elabe
 dernier_balayage_utc,Jamais — lancer le workflow
 derniers_signaux_detectes,0
+derniere_vague_verifiee,Toluna Harris Interactive / M6 RTL — terrain 18-19 août 2026
+dernier_echantillon_inscrits,1764
+statut_derniere_vague,Vérifiée — synthèse intégrée; détail exhaustif non injecté dans la moyenne
