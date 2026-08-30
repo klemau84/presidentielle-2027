@@ -1,2 +1,2 @@
 Conserver uniquement .git puis remplacer le reste par ce ZIP.
-Commit conseillé : V7.3 - Derniers sondages + registre Commission
+Commit conseillé : V7.4 - Sondages 29 août + reports de voix

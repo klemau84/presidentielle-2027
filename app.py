@@ -96,7 +96,7 @@ first, second, changes, mesures, contexte, metadata, etat_instituts, etat_donnee
 metadata_map = dict(zip(metadata["cle"], metadata["valeur"])) if not metadata.empty else {}
 
 st.title("Présidentielle 2027 — observatoire des sondages")
-st.caption("V7.3 · dernière vague vérifiée + registre officiel des publications")
+st.caption("V7.4 · sondages au 29 août + analyse des reports de voix au second tour")
 
 latest_first_publication = pd.to_datetime(first["publication"], errors="coerce").max()
 latest_second_publication = pd.to_datetime(second["publication"], errors="coerce").max()
@@ -138,6 +138,21 @@ with st.expander("Registre Commission des sondages"):
         "Tous les dépôts portant le tag présidentielle ne sont pas des intentions de vote. "
         "Les baromètres de popularité restent séparés des moyennes électorales."
     )
+
+with st.expander("Analyse des reports de voix au second tour", expanded=True):
+    reports = pd.read_csv(BASE / "reports_second_tour.csv")
+    analyse_reports = pd.read_csv(BASE / "analyse_reports_second_tour.csv")
+    duel_reports = st.selectbox("Duel analysé", analyse_reports["duel"].tolist(), key="duel_reports_v74")
+    synth = analyse_reports[analyse_reports["duel"] == duel_reports].iloc[0]
+    r1, r2 = st.columns(2)
+    r1.metric("Score Elabe 29 août", synth["score_elabe"])
+    r2.metric("Équilibre", synth["equilibre"])
+    st.write("**Lecture :**", synth["lecture"])
+    st.write("**Forces du candidat face au RN :**", synth["forces_adversaire"])
+    st.write("**Forces de Marine Le Pen :**", synth["forces_le_pen"])
+    subset = reports[reports["duel"] == duel_reports]
+    st.dataframe(subset, width="stretch", hide_index=True)
+    st.caption("Valeurs issues des reports explicitement publiés par Elabe; les données non publiées restent vides.")
 
 with st.expander("Veille automatique des nouveaux sondages"):
     v1, v2 = st.columns(2)
