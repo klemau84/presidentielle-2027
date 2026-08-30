@@ -1,5 +1,5 @@
 ﻿cle,valeur
-version_application,V7.4
+version_application,V7.5
 date_generation_utc,2026-08-24T14:53:48Z
 actualisation_automatique,Oui — détection hebdomadaire
 mode_actualisation,Veille GitHub Actions + intégration contrôlée
@@ -13,7 +13,9 @@ dernier_sondage_second_tour,2026-08-29
 dernier_institut_second_tour,Elabe
 dernier_balayage_utc,Jamais — lancer le workflow
 derniers_signaux_detectes,0
-derniere_vague_verifiee,Toluna Harris Interactive / M6 RTL — terrain 18-19 août 2026
+derniere_vague_verifiee,Elabe / BFMTV / La Tribune Dimanche — 29 août 2026
 dernier_echantillon_inscrits,1764
 statut_derniere_vague,Vérifiée — synthèse intégrée; détail exhaustif non injecté dans la moyenne
 analyse_reports_second_tour,Oui
+nouveaux_candidats_v75,François Ruffin ; Olivier Faure ; David Lisnard
+nombre_candidats_vague_29_aout,16

@@ -1,13 +1,13 @@
-﻿duel,electorat_premier_tour,finaliste_a,report_a_pct,finaliste_b,report_b_pct,abstention_pct,note
-Mélenchon vs Le Pen,PS / Glucksmann,Jean-Luc Mélenchon,33,Marine Le Pen,15,50,MLP 10–20%; abstention ~50%
-Mélenchon vs Le Pen,Centre,Jean-Luc Mélenchon,10,Marine Le Pen,30,60,
-Mélenchon vs Le Pen,Bruno Retailleau,Jean-Luc Mélenchon,,Marine Le Pen,60,,Complément non détaillé
-Glucksmann vs Le Pen,Jean-Luc Mélenchon,Raphaël Glucksmann,50,Marine Le Pen,,50,Complément annoncé comme abstention
-Glucksmann vs Le Pen,Centre,Raphaël Glucksmann,60,Marine Le Pen,20,20,
-Glucksmann vs Le Pen,Bruno Retailleau,Raphaël Glucksmann,15,Marine Le Pen,60,25,Glucksmann 10–20%; reste calculé
-Attal vs Le Pen,Raphaël Glucksmann,Gabriel Attal,70,Marine Le Pen,,,
-Attal vs Le Pen,Jean-Luc Mélenchon,Gabriel Attal,33,Marine Le Pen,,,
-Attal vs Le Pen,Bruno Retailleau,Gabriel Attal,33,Marine Le Pen,50,20,Valeurs arrondies
-Philippe vs Le Pen,Raphaël Glucksmann,Édouard Philippe,70,Marine Le Pen,,,
-Philippe vs Le Pen,Jean-Luc Mélenchon,Édouard Philippe,33,Marine Le Pen,,,
-Philippe vs Le Pen,Bruno Retailleau,Édouard Philippe,55,Marine Le Pen,33,10,Courte majorité vers Philippe; valeurs arrondies
+﻿duel,electorat_premier_tour,finaliste_a,report_a_pct,finaliste_b,report_b_pct,abstention_pct,detail
+Mélenchon vs Le Pen,Électeurs PS / Glucksmann,Jean-Luc Mélenchon,33,Marine Le Pen,15,50,1 sur 2 s'abstiendrait ; Le Pen capterait 1 à 2 sur 10
+Mélenchon vs Le Pen,Électeurs du centre,Jean-Luc Mélenchon,10,Marine Le Pen,30,60,6 sur 10 s'abstiendraient
+Mélenchon vs Le Pen,Électeurs Retailleau,Jean-Luc Mélenchon,,Marine Le Pen,60,,Le Pen capterait 6 sur 10
+Glucksmann vs Le Pen,Électeurs Mélenchon,Raphaël Glucksmann,50,Marine Le Pen,,50,1 sur 2 se reporterait sur Glucksmann ; le complément s'abstiendrait
+Glucksmann vs Le Pen,Électeurs du centre,Raphaël Glucksmann,60,Marine Le Pen,20,20,"6 sur 10 vers Glucksmann, 2 sur 10 vers Le Pen"
+Glucksmann vs Le Pen,Électeurs Retailleau,Raphaël Glucksmann,15,Marine Le Pen,60,25,Glucksmann 1 à 2 sur 10 ; Le Pen 6 sur 10
+Attal vs Le Pen,Électeurs Glucksmann,Gabriel Attal,70,Marine Le Pen,,,7 sur 10 se reporteraient sur Attal
+Attal vs Le Pen,Électeurs Mélenchon,Gabriel Attal,33,Marine Le Pen,,,1 sur 3 se reporterait sur Attal
+Attal vs Le Pen,Électeurs Retailleau,Gabriel Attal,33,Marine Le Pen,50,17,1 sur 3 Attal ; 1 sur 2 Le Pen ; solde ≈ abstention
+Philippe vs Le Pen,Électeurs Glucksmann,Édouard Philippe,70,Marine Le Pen,,,7 sur 10 se reporteraient sur Philippe
+Philippe vs Le Pen,Électeurs Mélenchon,Édouard Philippe,33,Marine Le Pen,,,1 sur 3 se reporterait sur Philippe
+Philippe vs Le Pen,Électeurs Retailleau,Édouard Philippe,55,Marine Le Pen,33,10,Courte majorité vers Philippe ; 1 sur 3 vers Le Pen ; 1 sur 10 abstention

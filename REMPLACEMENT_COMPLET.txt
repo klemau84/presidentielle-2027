@@ -1,2 +1,2 @@
-Conserver uniquement .git puis remplacer le reste par ce ZIP.
-Commit conseillé : V7.4 - Sondages 29 août + reports de voix
+Conserver uniquement le dossier .git, puis remplacer le reste par le contenu de ce ZIP.
+Commit conseillé : V7.5 - Elabe 29 août + nouveaux candidats + reports

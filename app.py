@@ -96,7 +96,7 @@ first, second, changes, mesures, contexte, metadata, etat_instituts, etat_donnee
 metadata_map = dict(zip(metadata["cle"], metadata["valeur"])) if not metadata.empty else {}
 
 st.title("Présidentielle 2027 — observatoire des sondages")
-st.caption("V7.4 · sondages au 29 août + analyse des reports de voix au second tour")
+st.caption("V7.5 · vague Elabe du 29 août enrichie + nouveaux candidats + reports de voix")
 
 latest_first_publication = pd.to_datetime(first["publication"], errors="coerce").max()
 latest_second_publication = pd.to_datetime(second["publication"], errors="coerce").max()
@@ -118,10 +118,37 @@ with st.container(border=True):
     )
 
 st.info(
-    "Dernière vague vérifiée : **Toluna Harris Interactive pour M6 / RTL**, "
-    "publiée le **24/08/2026**, terrain du **18 au 19/08**, "
-    "**1 764 inscrits**. Marine Le Pen est à **35–38 %** selon les cinq configurations."
+    "Dernière vague enrichie : **Elabe pour BFMTV / La Tribune Dimanche**, "
+    "publiée le **29/08/2026**. Marine Le Pen est à **34–35,5 %** selon les configurations. "
+    "La V7.5 ajoute notamment **François Ruffin, Olivier Faure et David Lisnard**."
 )
+with st.expander("Vague Elabe du 29 août — tous les candidats", expanded=True):
+    elabe_latest = pd.read_csv(BASE / "vague_elabe_29_aout_candidats.csv")
+    new_names = {"François Ruffin", "Olivier Faure", "David Lisnard"}
+    elabe_latest["nouveau_v75"] = elabe_latest["candidat"].isin(new_names)
+    e1, e2, e3 = st.columns(3)
+    e1.metric("Candidats recensés", len(elabe_latest))
+    e2.metric("Nouveaux dans la base", int(elabe_latest["nouveau_v75"].sum()))
+    e3.metric("Leader", "Marine Le Pen · 34–35,5 %")
+    fig_latest = px.bar(
+        elabe_latest.sort_values("score_central"),
+        x="score_central", y="candidat", orientation="h",
+        error_x=(elabe_latest["score_max"]-elabe_latest["score_central"]),
+        error_x_minus=(elabe_latest["score_central"]-elabe_latest["score_min"]),
+        labels={"score_central":"Intentions de vote (%)","candidat":""},
+        hover_data=["score_min","score_max","famille","position"]
+    )
+    fig_latest.update_layout(height=max(500, 32*len(elabe_latest)))
+    st.plotly_chart(fig_latest, use_container_width=True)
+    st.dataframe(
+        elabe_latest[["candidat","score_min","score_max","famille","position","lecture","nouveau_v75"]],
+        width="stretch", hide_index=True
+    )
+    st.caption(
+        "Lorsque le texte publié ne donne qu'une fourchette selon les configurations, "
+        "la V7.5 conserve cette fourchette au lieu de fabriquer un score unique."
+    )
+
 with st.expander("Dernière vague — détail vérifié", expanded=True):
     latest_file = BASE / "dernieres_vagues.csv"
     latest_df = pd.read_csv(latest_file)
@@ -138,21 +165,6 @@ with st.expander("Registre Commission des sondages"):
         "Tous les dépôts portant le tag présidentielle ne sont pas des intentions de vote. "
         "Les baromètres de popularité restent séparés des moyennes électorales."
     )
-
-with st.expander("Analyse des reports de voix au second tour", expanded=True):
-    reports = pd.read_csv(BASE / "reports_second_tour.csv")
-    analyse_reports = pd.read_csv(BASE / "analyse_reports_second_tour.csv")
-    duel_reports = st.selectbox("Duel analysé", analyse_reports["duel"].tolist(), key="duel_reports_v74")
-    synth = analyse_reports[analyse_reports["duel"] == duel_reports].iloc[0]
-    r1, r2 = st.columns(2)
-    r1.metric("Score Elabe 29 août", synth["score_elabe"])
-    r2.metric("Équilibre", synth["equilibre"])
-    st.write("**Lecture :**", synth["lecture"])
-    st.write("**Forces du candidat face au RN :**", synth["forces_adversaire"])
-    st.write("**Forces de Marine Le Pen :**", synth["forces_le_pen"])
-    subset = reports[reports["duel"] == duel_reports]
-    st.dataframe(subset, width="stretch", hide_index=True)
-    st.caption("Valeurs issues des reports explicitement publiés par Elabe; les données non publiées restent vides.")
 
 with st.expander("Veille automatique des nouveaux sondages"):
     v1, v2 = st.columns(2)
@@ -420,7 +432,7 @@ elif round_choice == "Second tour":
     s3.metric("Écart", f"{duel_data.iloc[0]['score'] - duel_data.iloc[1]['score']:.0f} pts")
     s4.metric("Sans opinion", f"{nsp:.1f} %")
 
-    tabs = st.tabs(["Duel", "Comparer les seconds tours", "Données", "Méthodologie"])
+    tabs = st.tabs(["Duel", "Comparer les seconds tours", "Reports de voix", "Données", "Méthodologie"])
 
     with tabs[0]:
         fig = px.bar(
@@ -458,7 +470,37 @@ elif round_choice == "Second tour":
         st.subheader("Vainqueur mesuré dans chaque duel")
         st.dataframe(winner, use_container_width=True, hide_index=True)
 
+
     with tabs[2]:
+        st.subheader("Analyse des reports de voix")
+        reports = pd.read_csv(BASE / "reports_second_tour.csv")
+        analyse_reports = pd.read_csv(BASE / "analyse_reports_second_tour.csv")
+        duel_reports = st.selectbox(
+            "Duel à analyser",
+            analyse_reports["duel"].tolist(),
+            key="reports_tab_v75",
+        )
+        synth = analyse_reports[analyse_reports["duel"] == duel_reports].iloc[0]
+        a1, a2 = st.columns(2)
+        a1.metric("Score Elabe", synth["score_elabe"])
+        a2.metric("Équilibre", synth["equilibre"])
+        st.write("**Lecture générale :**", synth["lecture"])
+        st.write("**Forces du candidat opposé au RN :**", synth["forces_adversaire"])
+        st.write("**Forces de Marine Le Pen :**", synth["forces_le_pen"])
+
+        r = reports[reports["duel"] == duel_reports].copy()
+        st.dataframe(r, use_container_width=True, hide_index=True)
+
+        st.markdown("#### Lecture des reports")
+        for _, row in r.iterrows():
+            st.markdown(f"- **{row['electorat_premier_tour']}** : {row['detail']}")
+
+        st.caption(
+            "Les reports sont ceux explicitement indiqués dans l'enquête Elabe. "
+            "Les approximations du type « 1 sur 3 » sont conservées comme valeurs arrondies."
+        )
+
+    with tabs[3]:
         st.dataframe(second, use_container_width=True, hide_index=True)
         st.download_button(
             "Télécharger les données du second tour",
@@ -467,7 +509,7 @@ elif round_choice == "Second tour":
             "text/csv",
         )
 
-    with tabs[3]:
+    with tabs[4]:
         st.markdown(
             """
             Les résultats de second tour proviennent de questions distinctes posées
