@@ -11,8 +11,8 @@ dernier_sondage_premier_tour,2026-08-29
 dernier_institut_premier_tour,Elabe
 dernier_sondage_second_tour,2026-08-29
 dernier_institut_second_tour,Elabe
-dernier_balayage_utc,Jamais — lancer le workflow
-derniers_signaux_detectes,0
+dernier_balayage_utc,2026-08-31T13:49:54Z
+derniers_signaux_detectes,83
 derniere_vague_verifiee,Elabe / BFMTV / La Tribune Dimanche — 29 août 2026
 dernier_echantillon_inscrits,1764
 statut_derniere_vague,Vérifiée — synthèse intégrée; détail exhaustif non injecté dans la moyenne
