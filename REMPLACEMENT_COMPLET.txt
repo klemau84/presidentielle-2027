@@ -1,2 +1,2 @@
-Conserver uniquement le dossier .git, puis remplacer le reste par le contenu de ce ZIP.
-Commit conseillé : V7.5 - Elabe 29 août + nouveaux candidats + reports
+Conserver uniquement .git puis remplacer le reste par ce ZIP.
+Commit : V7.6 - Ipsos BVA + Cluster17 septembre

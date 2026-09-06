@@ -96,7 +96,7 @@ first, second, changes, mesures, contexte, metadata, etat_instituts, etat_donnee
 metadata_map = dict(zip(metadata["cle"], metadata["valeur"])) if not metadata.empty else {}
 
 st.title("Présidentielle 2027 — observatoire des sondages")
-st.caption("V7.5 · vague Elabe du 29 août enrichie + nouveaux candidats + reports de voix")
+st.caption("V7.6 · Ipsos BVA + Cluster17 du 5 septembre + reports de voix")
 
 latest_first_publication = pd.to_datetime(first["publication"], errors="coerce").max()
 latest_second_publication = pd.to_datetime(second["publication"], errors="coerce").max()
@@ -122,6 +122,20 @@ st.info(
     "publiée le **29/08/2026**. Marine Le Pen est à **34–35,5 %** selon les configurations. "
     "La V7.5 ajoute notamment **François Ruffin, Olivier Faure et David Lisnard**."
 )
+with st.expander("Nouveaux sondages du 5 septembre — Ipsos BVA & Cluster17", expanded=True):
+    sept = pd.read_csv(BASE / "synthese_septembre_v76.csv")
+    st.dataframe(sept, width="stretch", hide_index=True)
+    st.markdown("**Lecture :** Marine Le Pen reste nettement première. Mélenchon progresse et se rapproche fortement de la qualification. Philippe reste le candidat central le mieux placé.")
+    st.markdown("#### Cluster17 — 3 scénarios complets")
+    c17 = pd.read_csv(BASE / "cluster17_septembre_2026.csv")
+    sc = st.selectbox("Scénario Cluster17", c17["scenario"].drop_duplicates().tolist(), key="c17_v76")
+    cs = c17[c17["scenario"] == sc].sort_values("score", ascending=False)
+    st.bar_chart(cs.set_index("candidat")["score"])
+    st.dataframe(cs[["candidat","score"]], width="stretch", hide_index=True)
+    st.markdown("#### Ipsos BVA — fourchettes officielles")
+    st.dataframe(pd.read_csv(BASE / "ipsos_bva_5_septembre_2026.csv"), width="stretch", hide_index=True)
+    st.caption("Les fourchettes Ipsos sont conservées telles que publiées ; aucune cellule manquante n'est inventée.")
+
 with st.expander("Vague Elabe du 29 août — tous les candidats", expanded=True):
     elabe_latest = pd.read_csv(BASE / "vague_elabe_29_aout_candidats.csv")
     new_names = {"François Ruffin", "Olivier Faure", "David Lisnard"}
