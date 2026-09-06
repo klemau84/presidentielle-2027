@@ -11,8 +11,6 @@ dernier_sondage_premier_tour,2026-09-05
 dernier_institut_premier_tour,Ipsos BVA + Cluster17
 dernier_sondage_second_tour,2026-08-29
 dernier_institut_second_tour,Elabe
-dernier_balayage_utc,Jamais — lancer le workflow
-derniers_signaux_detectes,0
 derniere_vague_verifiee,Ipsos BVA / Le Parisien et Cluster17 / Le Point — 5 septembre 2026
 dernier_echantillon_inscrits,1764
 statut_derniere_vague,Vérifiée — synthèse intégrée; détail exhaustif non injecté dans la moyenne
