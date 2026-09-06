@@ -9,7 +9,7 @@ import feedparser
 
 BASE=Path(__file__).resolve().parents[1]
 OUT=BASE/"sondages_detectes.csv"
-STATE=BASE/"metadonnees_application.csv"
+STATE=BASE/"etat_veille.csv"
 queries=[
     'présidentielle 2027 sondage Ifop',
     'présidentielle 2027 sondage Elabe',

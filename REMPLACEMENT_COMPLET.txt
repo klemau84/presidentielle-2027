@@ -1,2 +1,10 @@
-Conserver uniquement .git puis remplacer le reste par ce ZIP.
-Commit : V7.6 - Ipsos BVA + Cluster17 septembre
+V7.6 CORRIGÉE
+
+Si GitHub Desktop est encore bloqué sur le conflit actuel :
+1. Cliquer Abort merge.
+2. Conserver le dossier .git.
+3. Supprimer/remplacer tous les autres fichiers par le contenu de ce ZIP.
+4. Commit : V7.6 corrigée - séparation état veille et métadonnées
+5. Push.
+
+Le workflow ne modifie désormais plus metadonnees_application.csv.

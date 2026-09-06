@@ -31,6 +31,11 @@ def load_data():
     mesures = pd.read_csv(BASE / "mesures_economiques.csv")
     contexte = pd.read_csv(BASE / "contexte_macro.csv")
     metadata = pd.read_csv(BASE / "metadonnees_application.csv")
+    etat_veille_path = BASE / "etat_veille.csv"
+    if etat_veille_path.exists():
+        etat_veille = pd.read_csv(etat_veille_path)
+        metadata = pd.concat([metadata, etat_veille], ignore_index=True)
+        metadata = metadata.drop_duplicates(subset=["cle"], keep="last")
     etat_instituts = pd.read_csv(BASE / "etat_instituts.csv")
     etat_donnees = pd.read_csv(BASE / "etat_donnees.csv")
 
